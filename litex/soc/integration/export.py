@@ -221,7 +221,7 @@ def get_csr_header(regions, constants, csr_base=None, with_access_functions=True
     alignment = constants.get("CONFIG_CSR_ALIGNMENT", 32)
     r = generated_banner("//")
     r += """
-#define MMPTR(a) (*((volatile uint32_t *)(a)))
+#define MMPTR(a) (*((volatile unsigned long *)(a)))
 
 static inline void csr_write_simple(unsigned long v, unsigned long a)
 {
