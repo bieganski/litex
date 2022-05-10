@@ -222,6 +222,7 @@ def get_csr_header(regions, constants, csr_base=None, with_access_functions=True
     r = generated_banner("//")
     if with_access_functions: # FIXME
         r += "#include <generated/soc.h>\n"
+    r += "typedef unsigned long uint32_t;"
     r += "#ifndef __GENERATED_CSR_H\n#define __GENERATED_CSR_H\n"
     if with_access_functions:
         r += "#include <system.h>\n"
