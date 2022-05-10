@@ -284,6 +284,8 @@ class Builder:
     def _initialize_rom_software(self):
         # Get BIOS data from compiled BIOS binary.
         bios_file = os.path.join(self.software_dir, "bios", "bios.bin")
+        os.system(f"rm -rf {bios_file}")
+        os.system(f"riscv-none-embed-objcopy -O binary /home/mateusz/Ikva/sw/ikva_lce/build.ikva_elf.elf {bios_file}")
         bios_data = soc_core.get_mem_data(bios_file, self.soc.cpu.endianness)
 
         # Initialize SoC with with BIOS data.

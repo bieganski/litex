@@ -80,8 +80,8 @@ void print_hex(u32 val, u32 digits)
 }
 
 
-void printf(const char* var) {
-	for (int i = 0; i < sizeof(var); i++) {
+void printf(const char* var, int size) {
+	for (int i = 0; i < size; i++) {
 		litex_putc(var[i]);
 	}
 	litex_putc(10); //newline
@@ -89,10 +89,14 @@ void printf(const char* var) {
 
 
 
+#define PRINT(x) (printf(x, sizeof(x)))
+
 void isr() {
-	printf("IRQ HANDLER.. while true");
+	PRINT("IRQ HANDLER.. while true");
 	while(1) {};
 }
+
+
 
 
 // 	rom : ORIGIN = 0x00000000, LENGTH = 0x00020000
@@ -106,9 +110,11 @@ void mem_test() {
 }
 
 int main(int i, char **c) {
-	printf("starting memtest...");
+	// unsigned long x = 10;
+	// print_hex(sizeof(x), 8);
+	// PRINT("starting memtest...");
 	mem_test();
-	printf("mem_test finished!");
+	// PRINT("mem_test finished!");
 	while(1);
 	return 0;
 }
