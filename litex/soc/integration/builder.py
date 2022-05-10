@@ -42,7 +42,7 @@ soc_software_packages = [
     # "libc",
 
     # # Compiler-RT.
-    "libcompiler_rt",
+    # "libcompiler_rt",
 
     # # LiteX cores.
     "libbase",
