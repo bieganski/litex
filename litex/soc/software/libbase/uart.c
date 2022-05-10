@@ -10,6 +10,8 @@
 
 #define UART_POLLING
 
+static inline void uart_ev_pending_write(char x) {}
+
 void uart_isr(void)
 {
 }
