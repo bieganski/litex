@@ -13,7 +13,7 @@ include $(SOC_DIRECTORY)/software/common.mak
 # 	i2c.o \
 # 	isr.o
 
-OBJECTS := uart.o stdio.o
+OBJECTS := uart.o # stdio.o
 
 all: libbase.a
 

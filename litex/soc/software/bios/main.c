@@ -88,6 +88,13 @@ void printf(const char* var) {
 }
 
 
+
+void isr() {
+	printf("IRQ HANDLER.. while true");
+	while(1) {};
+}
+
+
 int main(int i, char **c) {
 	printf("AAAAAAAAAAAAAAAA");
 	return 0;

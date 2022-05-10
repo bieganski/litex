@@ -1,14 +1,13 @@
 #include "uart.h"
 
 // #include <irq.h>
-// #include <generated/csr.h>
+#include <generated/csr.h>
 
 /*
  * Buffer sizes must be a power of 2 so that modulos can be computed
  * with logical AND.
  */
 
-#define UART_POLLING
 
 static inline void uart_ev_pending_write(char x) {}
 
