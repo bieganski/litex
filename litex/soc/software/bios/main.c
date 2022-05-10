@@ -95,8 +95,21 @@ void isr() {
 }
 
 
+// 	rom : ORIGIN = 0x00000000, LENGTH = 0x00020000
+void mem_test() {
+	u32* addr = 0x0;
+	u32 len = 0x00020000;
+
+	for(int i = 0; i < len; i++) {
+		volatile u32 val = *addr++;
+	}
+}
+
 int main(int i, char **c) {
-	printf("AAAAAAAAAAAAAAAA");
+	printf("starting memtest...");
+	mem_test();
+	printf("mem_test finished!");
+	while(1);
 	return 0;
 }
 
