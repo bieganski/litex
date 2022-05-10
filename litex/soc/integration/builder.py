@@ -39,7 +39,7 @@ def _create_dir(d, remove_if_exists=False):
 
 soc_software_packages = [
     # picolibc
-    "libc",
+    # "libc",
 
     # # Compiler-RT.
     "libcompiler_rt",
