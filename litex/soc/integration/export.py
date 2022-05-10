@@ -224,7 +224,6 @@ def get_csr_header(regions, constants, csr_base=None, with_access_functions=True
         r += "#include <generated/soc.h>\n"
     r += "#ifndef __GENERATED_CSR_H\n#define __GENERATED_CSR_H\n"
     if with_access_functions:
-        r += "#include <stdint.h>\n"
         r += "#include <system.h>\n"
         r += "#ifndef CSR_ACCESSORS_DEFINED\n"
         r += "#include <hw/common.h>\n"
