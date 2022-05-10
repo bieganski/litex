@@ -220,6 +220,21 @@ def _get_rw_functions_c(reg_name, reg_base, nwords, busword, alignment, read_onl
 def get_csr_header(regions, constants, csr_base=None, with_access_functions=True):
     alignment = constants.get("CONFIG_CSR_ALIGNMENT", 32)
     r = generated_banner("//")
+    r += """
+#define MMPTR(a) (*((volatile uint32_t *)(a)))
+
+static inline void csr_write_simple(unsigned long v, unsigned long a)
+{
+        MMPTR(a) = v;
+}
+
+static inline unsigned long csr_read_simple(unsigned long a)
+{
+        return MMPTR(a);
+}
+    
+    
+"""
     if with_access_functions: # FIXME
         r += "#include <generated/soc.h>\n"
     r += "typedef unsigned long uint32_t; \n"
