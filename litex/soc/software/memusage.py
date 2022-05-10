@@ -46,9 +46,12 @@ def print_usage(bios,regions, triple):
             if 'NOBITS' in line:
                 tokens = list(filter(None,line.split(' ')))
                 ram_usage += int(tokens[6], 16)
+    
+    # XXX mateusz - we have everything in ROM
+    rom_usage += ram_usage
 
     print("\nROM usage: {:.2f}KiB \t({:.2f}%)".format(rom_usage / 1024.0, rom_usage / rom_size * 100.0))
-    print("RAM usage: {:.2f}KiB \t({:.2f}%)\n".format(ram_usage / 1024.0, ram_usage / ram_size * 100.0))
+    # print("RAM usage: {:.2f}KiB \t({:.2f}%)\n".format(ram_usage / 1024.0, ram_usage / ram_size * 100.0))
 
 def main():
     parser = argparse.ArgumentParser(description="Print bios memory usage")

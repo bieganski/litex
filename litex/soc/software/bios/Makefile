@@ -6,21 +6,27 @@ ifdef TFTP_SERVER_PORT
 CFLAGS += -DTFTP_SERVER_PORT=$(TFTP_SERVER_PORT)
 endif
 
+# SRCS := $(shell pwd) # $(wildcard *.c)
+# $(error $(SRCS))
+
 OBJECTS = boot-helper.o	\
 	  boot.o			\
 	  helpers.o			\
 	  cmd_bios.o		\
 	  cmd_mem.o			\
 	  cmd_boot.o		\
-	  cmd_i2c.o			\
-	  cmd_spiflash.o	\
-	  cmd_litedram.o	\
-	  cmd_liteeth.o		\
-	  cmd_litesdcard.o  \
-	  cmd_litesata.o    \
 	  sim_debug.o		\
-	  main.o \
-	  omg/lol.o
+	  main.o
+
+
+
+#   cmd_i2c.o			\
+#   cmd_spiflash.o	\
+#   cmd_litedram.o	\
+#   cmd_liteeth.o		\
+#   cmd_litesdcard.o  \
+#   cmd_litesata.o    \
+
 
 ifneq "$(or $(TERM_NO_COMPLETE),$(TERM_MINI))" ""
 CFLAGS += -DTERM_NO_COMPLETE
