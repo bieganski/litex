@@ -1,10 +1,6 @@
 include ../include/generated/variables.mak
 include $(SOC_DIRECTORY)/software/common.mak
 
-# Permit TFTP_SERVER_PORT override from shell environment / command line
-ifdef TFTP_SERVER_PORT
-CFLAGS += -DTFTP_SERVER_PORT=$(TFTP_SERVER_PORT)
-endif
 
 # SRCS := $(shell pwd) # $(wildcard *.c)
 # $(error $(SRCS))
@@ -53,7 +49,8 @@ OBJECTS := boot-helper.o	\
 LSCRIPT = linker.ld
 # endif
 
-all: bios.bin
+# all: bios.bin
+all: bios.elf
 	$(PYTHON) -m litex.soc.software.memusage bios.elf $(CURDIR)/../include/generated/regions.ld $(TRIPLE)
 
 %.bin: %.elf
@@ -69,7 +66,14 @@ endif
 
 bios.elf: $(BIOS_DIRECTORY)/$(LSCRIPT) $(OBJECTS)
 
+$(error $(PACKAGES:%=../%))
+
 vpath %.a $(PACKAGES:%=../%)
+
+# $(error $(LIBS))
+
+# %.a:
+# 	$(error $(PACKAGES))
 
 %.elf: crt0.o $(LIBS:%=%.a)
 	$(error $@)

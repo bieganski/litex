@@ -273,10 +273,10 @@ class Builder:
             dst_dir  = os.path.join(self.software_dir, name)
             makefile = os.path.join(src_dir, "Makefile")
             if self.compile_software:
-                lst = ["make", "-C", dst_dir, "-f", makefile]
+                # lst = ["make", "-C", dst_dir, "-f", makefile]
+                # as I got rid of dependency files (-MD -MF compilation flags), let's always rebuild.
+                lst = ["make", "-B", "-C", dst_dir, "-f", makefile]
                 if name == "bios":
-                    # as I got rid of dependency files (-MD -MF compilation flags), let's always rebuild.
-                    lst = ["make", "-B", "-C", dst_dir, "-f", makefile]
                     for _ in range(10):
                         print(' '.join(lst))
                 subprocess.check_call(lst)
