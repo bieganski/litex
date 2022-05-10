@@ -1,40 +1,28 @@
-// This file is Copyright (c) 2014-2021 Florent Kermarrec <florent@enjoy-digital.fr>
-// This file is Copyright (c) 2013-2014 Sebastien Bourdeauducq <sb@m-labs.hk>
-// This file is Copyright (c) 2018 Ewen McNeill <ewen@naos.co.nz>
-// This file is Copyright (c) 2018 Felix Held <felix-github@felixheld.de>
-// This file is Copyright (c) 2019 Gabriel L. Somlo <gsomlo@gmail.com>
-// This file is Copyright (c) 2017 Tim 'mithro' Ansell <mithro@mithis.com>
-// This file is Copyright (c) 2018 William D. Jones <thor0505@comcast.net>
-// License: BSD
 
-#include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <system.h>
-#include <string.h>
-#include <irq.h>
 
-#include <generated/mem.h>
-#include <generated/csr.h>
-#include <generated/soc.h>
+typedef unsigned long u32; 
+typedef unsigned char u8; 
+// #include <stdio.h>
+// #include <stdint.h>
+// #include <stdlib.h>
+// #include <system.h>
+// #include <string.h>
+// #include <irq.h>
 
-#include "sfl.h"
-#include "boot.h"
+// #include <generated/mem.h>
+// #include <generated/csr.h>
+// #include <generated/soc.h>
 
-#include <libbase/uart.h>
+// #include "sfl.h"
+// #include "boot.h"
 
-#include <libbase/console.h>
-#include <libbase/crc.h>
-#include <libbase/jsmn.h>
-#include <libbase/progress.h>
+// #include <libbase/uart.h>
 
-#include <libliteeth/udp.h>
-#include <libliteeth/tftp.h>
+// #include <libbase/console.h>
+// #include <libbase/crc.h>
+// #include <libbase/jsmn.h>
+// #include <libbase/progress.h>
 
-#include <liblitesdcard/spisdcard.h>
-#include <liblitesdcard/sdcard.h>
-#include <liblitesata/sata.h>
-#include <libfatfs/ff.h>
 
 /*-----------------------------------------------------------------------*/
 /* Helpers                                                               */
@@ -49,9 +37,37 @@
 
 extern void boot_helper(unsigned long r1, unsigned long r2, unsigned long r3, unsigned long addr);
 
+
+void print_hex_digit(u8 digit){
+	litex_putc(digit);
+}
+
+
+void print_hex_byte(u8 byte){
+    print_hex_digit(byte >> 4);
+    print_hex_digit(byte & 0x0F);
+}
+
+void print_hex(u32 val, u32 digits)
+{
+	for (int i = (4*digits)-4; i >= 0; i -= 4)
+		litex_putc("0123456789ABCDEF"[(val >> i) % 16]);
+	litex_putc(10); //newline
+}
+
+
+void printf(const char* var) {
+	for (int i = 0; i < sizeof(var); i++) {
+		litex_putc(var[i]);
+	}
+	litex_putc(10); //newline
+}
+
+
 void __attribute__((noreturn)) boot(unsigned long r1, unsigned long r2, unsigned long r3, unsigned long addr)
 {
-	printf("Executing booted program at 0x%08lx\n\n", addr);
+	printf("Executing booted program at ");
+	print_hex(addr, 8);
 	printf("--============= \e[1mLiftoff!\e[0m ===============--\n");
 #ifdef CSR_UART_BASE
 	uart_sync();

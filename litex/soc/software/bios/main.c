@@ -15,69 +15,43 @@
 
 // License: BSD
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <system.h>
-#include <irq.h>
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <string.h>
+// #include <system.h>
+// #include <irq.h>
 
-#include "boot.h"
-#include "readline.h"
-#include "helpers.h"
-#include "command.h"
+// #include "boot.h"
+// #include "readline.h"
+// #include "helpers.h"
+// #include "command.h"
 
-#include <generated/csr.h>
-#include <generated/soc.h>
-#include <generated/mem.h>
-#include <generated/git.h>
+// #include <generated/csr.h>
+// #include <generated/soc.h>
+// #include <generated/mem.h>
+// #include <generated/git.h>
 
-#include <libbase/console.h>
-#include <libbase/crc.h>
-#include <libbase/memtest.h>
+// #include <libbase/console.h>
+// #include <libbase/crc.h>
+// #include <libbase/memtest.h>
 
-#include <libbase/spiflash.h>
-#include <libbase/uart.h>
-#include <libbase/i2c.h>
+// #include <libbase/spiflash.h>
+// #include <libbase/uart.h>
+// #include <libbase/i2c.h>
 
-#include <liblitedram/sdram.h>
+// #include <liblitedram/sdram.h>
 
-#include <libliteeth/udp.h>
-#include <libliteeth/mdio.h>
+// #include <libliteeth/udp.h>
+// #include <libliteeth/mdio.h>
 
-#include <liblitespi/spiflash.h>
+// #include <liblitespi/spiflash.h>
 
-#include <liblitesdcard/sdcard.h>
-#include <liblitesata/sata.h>
-
-static void boot_sequence(void)
-{
-#ifdef CSR_UART_BASE
-	if (serialboot() == 0)
-		return;
-#endif
-#ifdef FLASH_BOOT_ADDRESS
-	flashboot();
-#endif
-#ifdef ROM_BOOT_ADDRESS
-	romboot();
-#endif
-#if defined(CSR_SPISDCARD_BASE) || defined(CSR_SDCORE_BASE)
-	sdcardboot();
-#endif
-#if defined(CSR_SATA_SECTOR2MEM_BASE)
-	sataboot();
-#endif
-#ifdef CSR_ETHMAC_BASE
-#ifdef CSR_ETHPHY_MODE_DETECTION_MODE_ADDR
-	eth_mode();
-#endif
-	netboot(0, NULL);
-#endif
-	printf("No boot medium found\n");
-}
+// #include <liblitesdcard/sdcard.h>
+// #include <liblitesata/sata.h>
 
 
 int main(int i, char **c) {
+	romboot();
 	return 0;
 }
 

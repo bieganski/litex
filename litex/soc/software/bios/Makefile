@@ -9,16 +9,16 @@ endif
 # SRCS := $(shell pwd) # $(wildcard *.c)
 # $(error $(SRCS))
 
-OBJECTS = boot-helper.o	\
+OBJECTS := boot-helper.o	\
 	  boot.o			\
-	  helpers.o			\
-	  cmd_bios.o		\
-	  cmd_mem.o			\
-	  cmd_boot.o		\
-	  sim_debug.o		\
 	  main.o
 
+# helpers.o			\
 
+# cmd_bios.o		\
+# 	  cmd_mem.o			\
+# 	  cmd_boot.o		\
+# 	  sim_debug.o		\
 
 #   cmd_i2c.o			\
 #   cmd_spiflash.o	\
@@ -28,30 +28,30 @@ OBJECTS = boot-helper.o	\
 #   cmd_litesata.o    \
 
 
-ifneq "$(or $(TERM_NO_COMPLETE),$(TERM_MINI))" ""
-CFLAGS += -DTERM_NO_COMPLETE
-else
-OBJECTS += complete.o
-endif
+# ifneq "$(or $(TERM_NO_COMPLETE),$(TERM_MINI))" ""
+# CFLAGS += -DTERM_NO_COMPLETE
+# else
+# OBJECTS += complete.o
+# endif
 
-ifdef TERM_NO_HIST
-CFLAGS += -DTERM_NO_HIST
-endif
+# ifdef TERM_NO_HIST
+# CFLAGS += -DTERM_NO_HIST
+# endif
 
-ifdef TERM_MINI
-CFLAGS += -DTERM_MINI
-OBJECTS += readline_simple.o
-else
-OBJECTS += readline.o
-endif
+# ifdef TERM_MINI
+# CFLAGS += -DTERM_MINI
+# OBJECTS += readline_simple.o
+# else
+# OBJECTS += readline.o
+# endif
 
-ifeq ($(CPU), zynq7000)
-LSCRIPT = linker-zynq.ld
-else ifeq ($(CPU), zynqmp)
-LSCRIPT = linker-zynqmp.ld
-else
+# ifeq ($(CPU), zynq7000)
+# LSCRIPT = linker-zynq.ld
+# else ifeq ($(CPU), zynqmp)
+# LSCRIPT = linker-zynqmp.ld
+# else
 LSCRIPT = linker.ld
-endif
+# endif
 
 all: bios.bin
 	$(PYTHON) -m litex.soc.software.memusage bios.elf $(CURDIR)/../include/generated/regions.ld $(TRIPLE)
@@ -72,6 +72,7 @@ bios.elf: $(BIOS_DIRECTORY)/$(LSCRIPT) $(OBJECTS)
 vpath %.a $(PACKAGES:%=../%)
 
 %.elf: crt0.o $(LIBS:%=%.a)
+	$(error $@)
 	$(CC) $(LDFLAGS) -T $(BIOS_DIRECTORY)/$(LSCRIPT) -N -o $@ \
 		crt0.o \
 		$(OBJECTS) \
