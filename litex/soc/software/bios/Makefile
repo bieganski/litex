@@ -19,7 +19,8 @@ OBJECTS = boot-helper.o	\
 	  cmd_litesdcard.o  \
 	  cmd_litesata.o    \
 	  sim_debug.o		\
-	  main.o
+	  main.o \
+	  omg/lol.o
 
 ifneq "$(or $(TERM_NO_COMPLETE),$(TERM_MINI))" ""
 CFLAGS += -DTERM_NO_COMPLETE
@@ -79,7 +80,7 @@ ifneq ($(OS),Windows_NT)
 endif
 
 # pull in dependency info for *existing* .o files
--include $(OBJECTS:.o=.d)
+# -include $(OBJECTS:.o=.d)
 
 VPATH = $(BIOS_DIRECTORY):$(BIOS_DIRECTORY)/cmds:$(CPU_DIRECTORY)
 

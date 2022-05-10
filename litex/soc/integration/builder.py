@@ -41,19 +41,19 @@ soc_software_packages = [
     # picolibc
     "libc",
 
-    # Compiler-RT.
+    # # Compiler-RT.
     "libcompiler_rt",
 
-    # LiteX cores.
+    # # LiteX cores.
     "libbase",
 
-    # LiteX Ecosystem cores.
-    "libfatfs",
-    "liblitespi",
-    "liblitedram",
-    "libliteeth",
-    "liblitesdcard",
-    "liblitesata",
+    # # LiteX Ecosystem cores.
+    # "libfatfs",
+    # "liblitespi",
+    # "liblitedram",
+    # "libliteeth",
+    # "liblitesdcard",
+    # "liblitesata",
 ]
 
 # Builder ------------------------------------------------------------------------------------------
@@ -273,7 +273,11 @@ class Builder:
             dst_dir  = os.path.join(self.software_dir, name)
             makefile = os.path.join(src_dir, "Makefile")
             if self.compile_software:
-                subprocess.check_call(["make", "-C", dst_dir, "-f", makefile])
+                lst = ["make", "-C", dst_dir, "-f", makefile]
+                if name == "bios":
+                    # as I got rid of dependency files (-MD -MF compilation flags), let's always rebuild.
+                    lst = ["make", "-B", "-C", dst_dir, "-f", makefile]
+                subprocess.check_call(lst)
 
     def _initialize_rom_software(self):
         # Get BIOS data from compiled BIOS binary.
@@ -305,7 +309,7 @@ class Builder:
         # Create Software directory.
         # First check if software needs a full re-build and remove software dir if so.
         if with_bios:
-            software_full_rebuild  = False
+            software_full_rebuild  = True # XXX False
             software_variables_mak = os.path.join(self.generated_dir, "variables.mak")
             if self.compile_software and os.path.exists(software_variables_mak):
                 old_variables_contents = open(software_variables_mak).read()
@@ -335,6 +339,7 @@ class Builder:
                 if use_bios:
                     self.soc.check_bios_requirements()
                     self._check_meson()
+                
                 self._prepare_rom_software()
                 self._generate_rom_software(compile_bios=use_bios)
 

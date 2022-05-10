@@ -74,7 +74,7 @@ git_repos = {
     # LiteX SoC builder
     "pythondata-software-picolibc":    GitRepo(url="https://github.com/litex-hub/", clone="recursive"),
     "pythondata-software-compiler_rt": GitRepo(url="https://github.com/litex-hub/"),
-    "litex":                           GitRepo(url="https://github.com/enjoy-digital/", tag=True),
+    "litex":                           GitRepo(url="https://github.com/bieganski/", tag=True),
 
     # LiteX Cores Ecosystem.
     "liteeth":      GitRepo(url="https://github.com/enjoy-digital/", tag=True),
@@ -146,7 +146,7 @@ def litex_setup_location_check():
         current_path = os.path.join(current_path, "../")
 
 def litex_setup_auto_update():
-    litex_setup_url = "https://raw.githubusercontent.com/enjoy-digital/litex/master/litex_setup.py"
+    litex_setup_url = "https://raw.githubusercontent.com/bieganski/litex/master/litex_setup.py"
     current_sha1 = hashlib.sha1(open(os.path.realpath(__file__)).read().encode("utf-8")).hexdigest()
     print_status("LiteX Setup auto-update...")
     try:

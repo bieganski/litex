@@ -145,6 +145,7 @@ make -C . -f {} {} {} {} {} {}
     "OPT_LEVEL={}".format(opt_level),
     "TRACE_FST=1" if trace_fst else "",
     )
+    # raise ValueError(build_script_contents)
     build_script_file = "build_" + build_name + ".sh"
     tools.write_to_file(build_script_file, build_script_contents, force_unix=True)
 
@@ -201,7 +202,6 @@ class SimVerilatorToolchain:
             pre_run_callback = None,
             extra_mods       = None,
             extra_mods_path  = ""):
-
         # Create build directory
         os.makedirs(build_dir, exist_ok=True)
         cwd = os.getcwd()

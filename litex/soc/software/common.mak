@@ -42,7 +42,7 @@ endif
 # http://scottmcpeak.com/autodepend/autodepend.html
 # Generate *.d Makefile dependencies fragments, include using;
 # -include $(OBJECTS:.o=.d)
-DEPFLAGS += -MD -MP
+# DEPFLAGS += -MD -MP
 
 # Toolchain options
 #
@@ -67,6 +67,7 @@ $(CX) -c $(CXXFLAGS) $(1) $< -o $@
 endef
 
 define compile
+mkdir -p $(dir $@)
 $(CC) -c $(CFLAGS) $(1) $< -o $@
 endef
 
