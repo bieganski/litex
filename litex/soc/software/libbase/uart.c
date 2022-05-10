@@ -1,7 +1,7 @@
 #include "uart.h"
 
-#include <irq.h>
-#include <generated/csr.h>
+// #include <irq.h>
+// #include <generated/csr.h>
 
 #ifdef CSR_UART_BASE
 

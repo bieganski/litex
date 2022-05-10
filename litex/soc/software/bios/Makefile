@@ -5,9 +5,7 @@ include $(SOC_DIRECTORY)/software/common.mak
 # SRCS := $(shell pwd) # $(wildcard *.c)
 # $(error $(SRCS))
 
-OBJECTS := boot-helper.o	\
-	  boot.o			\
-	  main.o
+OBJECTS := main.o
 
 # helpers.o			\
 
@@ -66,17 +64,11 @@ endif
 
 bios.elf: $(BIOS_DIRECTORY)/$(LSCRIPT) $(OBJECTS)
 
-$(error $(PACKAGES:%=../%))
-
 vpath %.a $(PACKAGES:%=../%)
+# vpath %.a ../libbase
 
-# $(error $(LIBS))
-
-# %.a:
-# 	$(error $(PACKAGES))
 
 %.elf: crt0.o $(LIBS:%=%.a)
-	$(error $@)
 	$(CC) $(LDFLAGS) -T $(BIOS_DIRECTORY)/$(LSCRIPT) -N -o $@ \
 		crt0.o \
 		$(OBJECTS) \

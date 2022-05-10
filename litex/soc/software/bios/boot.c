@@ -103,6 +103,7 @@ enum {
 /* ROM Boot                                                              */
 /*-----------------------------------------------------------------------*/
 
+
 #ifdef ROM_BOOT_ADDRESS
 /* Running the application code from ROM is the fastest way to execute code
    and could be interesting when the code is small enough, on large devices

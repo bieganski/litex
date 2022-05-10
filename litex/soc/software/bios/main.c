@@ -50,8 +50,46 @@
 // #include <liblitesata/sata.h>
 
 
+typedef unsigned long u32; 
+typedef unsigned char u8; 
+
+static int litex_putc(char c)
+{
+	uart_write(c);
+	if (c == '\n')
+		litex_putc('\r');
+	return c;
+}
+
+
+void print_hex_digit(u8 digit){
+	litex_putc(digit);
+}
+
+
+void print_hex_byte(u8 byte){
+    print_hex_digit(byte >> 4);
+    print_hex_digit(byte & 0x0F);
+}
+
+void print_hex(u32 val, u32 digits)
+{
+	for (int i = (4*digits)-4; i >= 0; i -= 4)
+		litex_putc("0123456789ABCDEF"[(val >> i) % 16]);
+	litex_putc(10); //newline
+}
+
+
+void printf(const char* var) {
+	for (int i = 0; i < sizeof(var); i++) {
+		litex_putc(var[i]);
+	}
+	litex_putc(10); //newline
+}
+
+
 int main(int i, char **c) {
-	romboot();
+	printf("AAAAAAAAAAAAAAAA");
 	return 0;
 }
 
