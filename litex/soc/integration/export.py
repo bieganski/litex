@@ -226,7 +226,6 @@ def get_csr_header(regions, constants, csr_base=None, with_access_functions=True
     if with_access_functions:
         r += "#include <system.h>\n"
         r += "#ifndef CSR_ACCESSORS_DEFINED\n"
-        r += "#include <hw/common.h>\n"
         r += "#endif /* ! CSR_ACCESSORS_DEFINED */\n"
     csr_base = csr_base if csr_base is not None else regions[next(iter(regions))].origin
     r += "#ifndef CSR_BASE\n"
