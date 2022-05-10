@@ -47,8 +47,7 @@ OBJECTS := main.o
 LSCRIPT = linker.ld
 # endif
 
-# all: bios.bin
-all: bios.elf
+all: bios.bin
 	$(PYTHON) -m litex.soc.software.memusage bios.elf $(CURDIR)/../include/generated/regions.ld $(TRIPLE)
 
 %.bin: %.elf
